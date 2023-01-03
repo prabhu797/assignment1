@@ -1,0 +1,74 @@
+import java.util.Scanner;
+class Servicing
+{
+	String [] servicecode= {"bs01","ef01","cf01","bf01","gf01"};
+	String [] service= {"Basic Servicing","Engine Fixing ","Clutch Fixing","Brake Fixing","Gear Fixing"};
+	int[][] all= {{2000,4000,5000},{5000,8000,10000},{2000,4000,6000}, {1000,1500,2500},{3000,6000,8000}};
+}
+
+public class Car extends Servicing
+{
+	public void bill(String s, String [] s1,int n)
+	{
+		System.out.println("type of car - " + s.toUpperCase());
+		System.out.print("Service codes - ");
+		for(int i=0; i<=s1.length-1; i++)
+		{
+			System.out.print(s1[i].toUpperCase() + ",");
+		}
+		System.out.println("\n");
+		int sum = 0;
+		for(int j=0; j<=s1.length-1; j++)
+		{
+			for(int k=0; k<=servicecode.length-1; k++)
+			{
+				if(s1[j].equalsIgnoreCase(servicecode[k]))
+				{
+					System.out.println("Charges for " + service[j]+" -\t"+ all[k][n] +"/-");
+					sum+= all[k][n];
+				}
+			}
+		}
+		System.out.println("Total bill -" + sum);
+		if(sum>=10000)
+		{
+			System.out.println("You recieved complimentary cleaning");
+		}
+	}
+	
+	public static void main(String[] args) 
+	{
+		Car c1 = new Car();
+		String[] str= {"hatchbak","sedan","suv"};
+		Scanner ip=new Scanner(System.in);
+		System.out.println("Enter type of car");
+		String s1=ip.next();
+		s1=s1.toLowerCase();
+		int x=-1;
+		for(int i=0 ;i<str.length;i++)
+		{
+			if(s1.equals(str[i]))
+			{
+				x = i;
+				break;
+			}
+		}	
+		if(x==(-1))
+		{
+			System.out.println("Sorry we dont privide ");
+			return;
+		}
+		ip.nextLine();
+		System.out.println("Enter the service required (Note:*Privide coma(,) for multi[ple service)");
+		System.out.println("Enter BS01 for Basic service");
+		System.out.println("Enter EF01 for Engine Fixing");
+		System.out.println("Enter CF01 for Clutch Fixing");
+		System.out.println("Enter BF01 for Brake Fixing");
+		System.out.println("Enter GF01 for Gear Fixing");
+		String s2=ip.next();
+		s2=s2.toLowerCase();
+		String[] s3=s2.split(",");
+		c1.bill(s1, s3, x);
+	}
+
+}
